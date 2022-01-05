@@ -11,6 +11,7 @@ function SignUp(props) {
         lastName: '',
         userName: '',
         password: '',
+        confirmPassword:'',
         remember: false
     }
 
@@ -18,7 +19,9 @@ function SignUp(props) {
         firstName:yup.string().required("Firstname is required"),
         lastName:yup.string().required("Lastname is required"),
         userName: yup.string().email("enter valid email").required("email is required"),
-        password: yup.string().required("password is required").min("5").max("10")
+        password: yup.string().required("password is required").min("5").max("10"),
+         confirmPassword: yup.string()
+        .oneOf([yup.ref('password'), null], 'Passwords must match')
     })
 
     let onSubmit = (values, props) => {
@@ -91,6 +94,26 @@ function SignUp(props) {
                                 />
                                 <p className='error'><ErrorMessage name="password" /></p>
 
+                            </div>
+                     <div className="mb-3">
+                                <label>Confirm Password</label>
+                                <Field
+
+                                    type="password"
+                                    className="form-control"
+                                    placeholder="Enter Confirm Password"
+                                    name="confirmPassword"
+                                />
+                                <p className='error'><ErrorMessage name="confirmPassword" /></p>
+
+                            </div>
+                     <div>
+                                <Field
+                                    type="checkbox"
+                                    className="form-check-input"
+                                    id="exampleCheck1"
+                                    name="remember"
+                                />
                             </div>
                             <button type="submit" className="btn btn-primary" >SignUp</button>
 
